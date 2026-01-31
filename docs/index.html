@@ -67,34 +67,6 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script src=" https://unpkg.com/@joergdietrich/leaflet.terminator/L.Terminator.js"></script>
 	<script>
-		async function fetchSolarData() {
-    try {
-        // 1. Haal de Kp-index op (laatste 24 uur data)
-        const kpResponse = await fetch('https://services.swpc.noaa.gov/products/noaa-estimated-planetary-k-index-1-minute.json');
-        const kpData = await kpResponse.json();
-        // De laatste waarde in de lijst is de meest actuele
-        const latestKp = kpData[kpData.length - 1][1];
-        document.getElementById('kp').innerText = latestKp;
-
-        // Kleur de Kp waarde op basis van ernst
-        const kpElem = document.getElementById('kp');
-        if (latestKp >= 5) kpElem.style.color = '#ff0000'; // Storm
-        else if (latestKp >= 3) kpElem.style.color = '#ffff00'; // Onrustig
-        else kpElem.style.color = '#00ff00'; // Rustig
-
-        // 2. Haal de SFI op (Solar Flux Index)
-        const sfiResponse = await fetch('https://services.swpc.noaa.gov/json/f107_index_10cm.json');
-        const sfiData = await sfiResponse.json();
-        // Pak de laatste meting uit de array
-        const latestSfi = sfiData[sfiData.length - 1].flux;
-        document.getElementById('sfi').innerText = Math.round(latestSfi);
-
-    } catch (error) {
-        console.error("Fout bij ophalen data:", error);
-        document.getElementById('kp').innerText = "ERR";
-        document.getElementById('sfi').innerText = "ERR";
-    }
-}
 </script>
 	
 </head>
@@ -159,7 +131,7 @@
 
     <div class="panel">
         <div class="label">Kp Index</div>
-        <div class="data-point" id="kp-index">--</div>
+        <div class="data-point" id="kp">--</div>
     </div>
 
     <script>
@@ -170,19 +142,43 @@
         }
 
         // Simpele functie om data te simuleren (Later vervangen door API-fetch)
-        function updateSolarData() {
-            document.getElementById('sfi').textContent = Math.floor(Math.random() * (200 - 70) + 70);
-            document.getElementById('kp-index').textContent = (Math.random() * 5).toFixed(1);
-        }
+		async function fetchSolarData() {
+	    try {
+	        // 1. Haal de Kp-index op (laatste 24 uur data)
+	        const kpResponse = await fetch('https://services.swpc.noaa.gov/products/noaa-estimated-planetary-k-index-1-minute.json');
+	        const kpData = await kpResponse.json();
+	        // De laatste waarde in de lijst is de meest actuele
+	        const latestKp = kpData[kpData.length - 1][1];
+	        document.getElementById('kp').innerText = latestKp;
+	
+	        // Kleur de Kp waarde op basis van ernst
+	        const kpElem = document.getElementById('kp');
+	        if (latestKp >= 5) kpElem.style.color = '#ff0000'; // Storm
+	        else if (latestKp >= 3) kpElem.style.color = '#ffff00'; // Onrustig
+	        else kpElem.style.color = '#00ff00'; // Rustig
+	
+	        // 2. Haal de SFI op (Solar Flux Index)
+	        const sfiResponse = await fetch('https://services.swpc.noaa.gov/json/f107_index_10cm.json');
+	        const sfiData = await sfiResponse.json();
+	        // Pak de laatste meting uit de array
+	        const latestSfi = sfiData[sfiData.length - 1].flux;
+	        document.getElementById('sfi').innerText = Math.round(latestSfi);
+	
+	    } catch (error) {
+	        console.error("Fout bij ophalen data:", error);
+	        document.getElementById('kp').innerText = "ERR";
+	        document.getElementById('sfi').innerText = "ERR";
+    	}
+	}
 
 		function updateTerminator(t) {
   			t.setTime();
 		}
 
 		setInterval(updateTime, 1000);
-        setInterval(updateSolarData, 60000);
+        //setInterval(updateSolarData, 60000);
         updateTime();
-        updateSolarData();
+        //updateSolarData();
 
 		fetchSolarData();
 		setInterval(fetchSolarData, 600000);
