@@ -2,7 +2,7 @@
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <title>hcClone 7</title>
+    <title>hcClone 9</title>
     <style>
         :root {
             --bg-color: #0a0a0a;
@@ -143,8 +143,8 @@
         // Simpele functie om data te simuleren (Later vervangen door API-fetch)
 		async function fetchSolarData() {
 			const proxy = "https://corsproxy.io/?";
-			const kpUrl = "encodeURIComponent("https://services.swpc.noaa.gov/products/noaa-estimated=planetary-k-index-1-minute.json");
-			const sfiUrl = "encodeURIComponent("https://services.swpc.noaa.gov/json/f107_index_10cm.json");
+			const kpUrl = encodeURIComponent("https://services.swpc.noaa.gov/products/noaa-estimated=planetary-k-index-1-minute.json");
+			const sfiUrl = encodeURIComponent("https://services.swpc.noaa.gov/json/f107_index_10cm.json");
 			
 	    try {
 	        // 1. Haal de Kp-index op (laatste 24 uur data)
