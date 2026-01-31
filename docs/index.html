@@ -83,7 +83,7 @@
 	const map = L.map('map').setView([51.8, 4.4], 13);
 	var t = L.terminator();
 	t.addTo(map);
-	setInterval(function(){updateTerminator(t)}, 500);
+	setInterval(function(){updateTerminator(t)}, 5000);
 
 	const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 		maxZoom: 19,
@@ -143,8 +143,8 @@
 
         // Simpele functie om data te simuleren (Later vervangen door API-fetch)
 		async function fetchSolarData() {
-			const proxy = "https:corsproxy.io/?";
-			const kpUrl = "encodeURIComponent("https"://services.swpc.noaa.gov/products/noaa-estimated=planetary-k-index-1-minute.json");
+			const proxy = "https://corsproxy.io/?";
+			const kpUrl = "encodeURIComponent("https://services.swpc.noaa.gov/products/noaa-estimated=planetary-k-index-1-minute.json");
 			const sfiUrl = "encodeURIComponent("https"://services.swpc.noaa.gov/json/f107_index_10cm.json");
 			
 	    try {
