@@ -143,9 +143,13 @@
 
         // Simpele functie om data te simuleren (Later vervangen door API-fetch)
 		async function fetchSolarData() {
+			const proxy = "https:corsproxy.io/?";
+			const kpUrl = "encodeURIComponent("https"://services.swpc.noaa.gov/products/noaa-estimated=planetary-k-index-1-minute.json");
+			const sfiUrl = "encodeURIComponent("https"://services.swpc.noaa.gov/json/f107_index_10cm.json");
+			
 	    try {
 	        // 1. Haal de Kp-index op (laatste 24 uur data)
-	        const kpResponse = await fetch('https://services.swpc.noaa.gov/products/noaa-estimated-planetary-k-index-1-minute.json');
+	        const kpResponse = await fetch(proxy + kpUrl);
 	        const kpData = await kpResponse.json();
 	        // De laatste waarde in de lijst is de meest actuele
 	        const latestKp = kpData[kpData.length - 1][1];
@@ -158,7 +162,7 @@
 	        else kpElem.style.color = '#00ff00'; // Rustig
 	
 	        // 2. Haal de SFI op (Solar Flux Index)
-	        const sfiResponse = await fetch('https://services.swpc.noaa.gov/json/f107_index_10cm.json');
+	        const sfiResponse = await fetch(proxy + sfiUrl);
 	        const sfiData = await sfiResponse.json();
 	        // Pak de laatste meting uit de array
 	        const latestSfi = sfiData[sfiData.length - 1].flux;
