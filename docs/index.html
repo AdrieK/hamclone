@@ -2,7 +2,7 @@
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <title>hcClone 123</title>
+    <title>hcClone 55</title>
     <style>
         :root {
             --bg-color: #0a0a0a;
@@ -83,7 +83,6 @@
 	const map = L.map('map').setView([51.8, 4.4], 13);
 	var t = L.terminator();
 	t.addTo(map);
-	setInterval(function(){updateTerminator(t)}, 5000);
 
 	const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 		maxZoom: 19,
@@ -179,6 +178,7 @@
   			t.setTime();
 		}
 
+		setInterval(updateTerminator, 5000);
 		setInterval(updateTime, 1000);
         //setInterval(updateSolarData, 60000);
         updateTime();
