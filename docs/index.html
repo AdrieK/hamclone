@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Web HamClock Dashboard</title>
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --panel-bg: #1a1a1a;
+            --accent: #00ff00; /* Klassiek groen, of gebruik #ff9900 voor amber */
+            --text: #e0e0e0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: auto 1fr 1fr;
+            gap: 10px;
+            padding: 10px;
+            height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .panel {
+            background: var(--panel-bg);
+            border: 1px solid #333;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* De Klok bovenin */
+        .header {
+            grid-column: span 3;
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        /* De Kaart (placeholder) */
+        .map-area {
+            grid-column: span 2;
+            grid-row: span 2;
+            background: #111;
+            position: relative;
+        }
+
+        .data-point {
+            font-size: 1.2rem;
+            margin: 5px 0;
+        }
+
+        .label { color: #888; font-size: 0.8rem; text-transform: uppercase; }
+    </style>
+</head>
+<body>
+
+    <div class="panel header" id="clock">00:00:00 UTC</div>
+
+    <div class="panel map-area">
+        <div class="label">World Map & Gray Line</div>
+        <div style="color: #444;">[ Hier komt de Leaflet.js kaart ]</div>
+    </div>
+
+    <div class="panel">
+        <div class="label">Solar Flux Index</div>
+        <div class="data-point" id="sfi">--</div>
+    </div>
+
+    <div class="panel">
+        <div class="label">Kp Index</div>
+        <div class="data-point" id="kp-index">--</div>
+    </div>
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const utc = now.toISOString().split('T')[1].split('.')[0];
+            document.getElementById('clock').textContent = utc + " UTC";
+        }
+
+        // Simpele functie om data te simuleren (Later vervangen door API-fetch)
+        function updateSolarData() {
+            document.getElementById('sfi').textContent = Math.floor(Math.random() * (200 - 70) + 70);
+            document.getElementById('kp-index').textContent = (Math.random() * 5).toFixed(1);
+        }
+
+        setInterval(updateTime, 1000);
+        setInterval(updateSolarData, 60000);
+        updateTime();
+        updateSolarData();
+    </script>
+</body>
+</html>
