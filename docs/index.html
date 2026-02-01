@@ -17,7 +17,7 @@
             font-family: 'Courier New', Courier, monospace;
             margin: 0;
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             grid-template-rows: auto 1fr 1fr;
             gap: 10px;
             padding: 10px;
@@ -37,7 +37,15 @@
 
         /* De Klok bovenin */
         .header {
-            grid-column: span 3;
+            grid-column: span 2;
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        /* Band conditions */
+        .header {
+            grid-column: span 2;
             font-size: 3rem;
             font-weight: bold;
             color: var(--accent);
@@ -51,7 +59,7 @@
             position: relative;
         }
 
-        .data-point {
+		.data-point {
             font-size: 1.2rem;
             margin: 5px 0;
         }
@@ -73,12 +81,16 @@
 <body>
 
     <div class="panel header" id="clock">00:00:00 UTC</div>
+    <div class="panel header" id="bandconditions">
+		<img src="https://www.hamqsl.com/solar101vhfpic.php">
+	</div>
 
     <div class="panel map-area">
         <div class="label">World Map & Gray Line</div>
         <div style="color: #444;">
-<div id="map" style="width: 600px; height: 400px;"></div>
-<script>
+	<div id="map" style="width: 600px; height: 400px;"></div>
+
+  <script>
 
 	const map = L.map('map').setView([51.8, 4.4], 13);
 	var t = L.terminator();
@@ -120,7 +132,7 @@
 	map.on('click', onMapClick);
 
 </script>
-        </div>
+    </div>
     </div>
 
     <div class="panel">
@@ -131,6 +143,11 @@
     <div class="panel">
         <div class="label">Kp Index</div>
         <div class="data-point" id="kp">--</div>
+    </div>
+
+    <div class="panel">
+        <div class="label">Nog eentje erbij</div>
+        <div class="data-point" id="id">--</div>
     </div>
 
     <script>
