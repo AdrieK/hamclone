@@ -1,0 +1,30 @@
+name: Update Solar Data
+
+on:
+  schedule:
+    - cron: '0 * * * *' # Draait elk uur
+  workflow_dispatch: # Hiermee kun je het ook handmatig starten
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Download NOAA Data
+        run: |
+          # Haal K-index en SFI op (NOAA heeft verschillende JSON's)
+          curl -s https://services.swpc.noaa.gov/json/planetary_k_index_1m.json -o k_index.json
+          curl -s https://services.swpc.noaa.gov/json/solar_images.json -o solar_flux.json
+          # Je kunt hier meerdere curls toevoegen voor verschillende NOAA bestanden
+
+      - name: Commit and Push
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git add k_index.json solar_flux.json
+          git commit -m "Update solar data" || exit 0
+          git push
