@@ -2,7 +2,7 @@ name: Update Solar Data
 
 on:
   schedule:
-    - cron: '0 * * * *' # Draait elk uur
+    #- cron: '0 * * * *' # Draait elk uur
   workflow_dispatch: # Hiermee kun je het ook handmatig starten
 
 jobs:
